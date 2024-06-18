@@ -1,6 +1,7 @@
 package com.musinsa.shop.categorypath.adapter.out.persistence
 
 import com.musinsa.shop.category.adapter.out.persistence.Category
+import com.musinsa.shop.common.BaseEntity
 import jakarta.persistence.*
 import java.io.Serializable
 
@@ -30,4 +31,4 @@ data class CategoryPath(
     @ManyToOne
     @JoinColumn(name = "child", insertable = false, updatable = false)
     val child: Category
-)
+): BaseEntity()

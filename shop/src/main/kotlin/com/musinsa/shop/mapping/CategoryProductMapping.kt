@@ -1,6 +1,7 @@
 package com.musinsa.shop.mapping
 
 import com.musinsa.shop.category.adapter.out.persistence.Category
+import com.musinsa.shop.common.BaseEntity
 import com.musinsa.shop.product.adapter.out.persistence.Product
 import jakarta.persistence.*
 
@@ -19,4 +20,4 @@ data class CategoryProductMapping(
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     val product: Product
-)
+): BaseEntity()

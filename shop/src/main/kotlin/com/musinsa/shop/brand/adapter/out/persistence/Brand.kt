@@ -1,5 +1,6 @@
 package com.musinsa.shop.brand.adapter.out.persistence
 
+import com.musinsa.shop.common.BaseEntity
 import com.musinsa.shop.mapping.CategoryBrandMapping
 import com.musinsa.shop.product.adapter.out.persistence.Product
 import jakarta.persistence.*
@@ -24,4 +25,4 @@ data class Brand(
 
     @OneToMany(mappedBy = "brand")
     val categoryMappings: Set<CategoryBrandMapping> = emptySet()
-)
+): BaseEntity()
