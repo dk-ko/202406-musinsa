@@ -8,11 +8,11 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "brand")
-data class Brand(
+class Brand(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")
-    val id: Long = 0,
+    val id: Long? = null,
 
     @Column(name = "name", nullable = false)
     val name: String,

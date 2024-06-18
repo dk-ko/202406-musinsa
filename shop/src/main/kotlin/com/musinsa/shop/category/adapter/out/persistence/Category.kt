@@ -7,11 +7,11 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "category")
-data class Category(
+class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    val id: Long = 0,
+    val id: Long? = null,
 
     @Column(name = "name", nullable = false)
     val name: String,

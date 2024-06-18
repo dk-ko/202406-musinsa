@@ -7,11 +7,11 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "category_product_mapping")
-data class CategoryProductMapping(
+class CategoryProductMapping(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_product_mapping_id")
-    val id: Long = 0,
+    val id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

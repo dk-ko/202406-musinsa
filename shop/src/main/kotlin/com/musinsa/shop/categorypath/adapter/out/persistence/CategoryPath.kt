@@ -17,7 +17,7 @@ data class CategoryPathId(
 
 @Entity
 @Table(name = "category_path")
-data class CategoryPath(
+class CategoryPath(
     @EmbeddedId
     val id: CategoryPathId,
 
