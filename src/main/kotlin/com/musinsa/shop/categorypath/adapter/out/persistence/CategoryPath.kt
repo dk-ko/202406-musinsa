@@ -8,10 +8,10 @@ import java.io.Serializable
 
 @Embeddable
 data class CategoryPathId(
-    @Column(name = "parent")
+    @Column(name = "parent_id")
     val parentId: Long,
 
-    @Column(name = "child")
+    @Column(name = "child_id")
     val childId: Long
 ) : Serializable
 
@@ -25,10 +25,10 @@ class CategoryPath(
     val depth: Int,
 
     @ManyToOne
-    @JoinColumn(name = "parent", insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     val parent: Category,
 
     @ManyToOne
-    @JoinColumn(name = "child", insertable = false, updatable = false)
+    @JoinColumn(name = "child_id", insertable = false, updatable = false)
     val child: Category
 ): BaseEntity()
