@@ -3,9 +3,10 @@ package com.musinsa.shop.brand.adapter.out.persistence
 import com.musinsa.shop.brand.application.port.out.LoadBrandPort
 import com.musinsa.shop.exception.DuplicateException
 import com.musinsa.shop.exception.NotFoundException
-import com.musinsa.shop.mapping.CategoryBrandMapping
+import org.springframework.stereotype.Component
 import kotlin.jvm.optionals.getOrElse
 
+@Component
 class BrandPersistenceAdapter(
     private val brandRepository: BrandRepository,
 ) : LoadBrandPort {

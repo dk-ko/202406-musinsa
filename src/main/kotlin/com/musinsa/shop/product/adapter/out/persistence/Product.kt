@@ -1,6 +1,7 @@
 package com.musinsa.shop.product.adapter.out.persistence
 
 import com.musinsa.shop.brand.adapter.out.persistence.Brand
+import com.musinsa.shop.category.adapter.out.persistence.Category
 import com.musinsa.shop.common.BaseEntity
 import com.musinsa.shop.mapping.CategoryProductMapping
 import jakarta.persistence.*
@@ -22,10 +23,26 @@ class Product(
     @Column(name = "brand_code", nullable = false)
     val brandCode: String,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", nullable = false)
     val brand: Brand,
 
-    @OneToMany(mappedBy = "product")
-    val categoryMappings: Set<CategoryProductMapping> = emptySet()
-): BaseEntity()
+    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL])
+    val categoryMappings: MutableList<CategoryProductMapping> = mutableListOf()
+): BaseEntity() {
+    fun addAllCategory(categories: List<Category>) {
+        val categoryProductMappingList = categories.map { category ->
+            CategoryProductMapping(
+                id = null,
+                category = category,
+                product = this,
+            )
+        }
+
+        categories.forEach { category ->
+            category.addAll(categoryProductMappingList)
+        }
+
+        categoryMappings.addAll(categoryProductMappingList)
+    }
+}

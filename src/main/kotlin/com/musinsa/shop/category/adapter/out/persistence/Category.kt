@@ -17,12 +17,12 @@ class Category(
     val name: String,
 
     @OneToMany(mappedBy = "category")
-    val productMappings: Set<CategoryProductMapping> = emptySet(),
+    val productMappings: MutableList<CategoryProductMapping> = mutableListOf(),
 
     @OneToMany(mappedBy = "category")
     val brandMappings: Set<CategoryBrandMapping> = emptySet()
 ): BaseEntity() {
-    fun copy(id: Long): Category {
-        return Category(id, name, productMappings, brandMappings)
+    fun addAll(categoryProductMappingList: List<CategoryProductMapping>) {
+        productMappings.addAll(categoryProductMappingList)
     }
 }
