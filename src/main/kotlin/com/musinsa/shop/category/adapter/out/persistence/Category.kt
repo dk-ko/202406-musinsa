@@ -20,7 +20,7 @@ class Category(
     val productMappings: MutableList<CategoryProductMapping> = mutableListOf(),
 
     @OneToMany(mappedBy = "category")
-    val brandMappings: Set<CategoryBrandMapping> = emptySet()
+    val brandMappings: MutableList<CategoryBrandMapping> = mutableListOf()
 ): BaseEntity() {
     fun addAll(categoryProductMappingList: List<CategoryProductMapping>) {
         productMappings.addAll(categoryProductMappingList)

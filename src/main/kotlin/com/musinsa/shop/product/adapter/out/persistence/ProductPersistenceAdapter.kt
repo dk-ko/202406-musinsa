@@ -1,7 +1,7 @@
 package com.musinsa.shop.product.adapter.out.persistence
 
-import com.musinsa.shop.brand.adapter.`in`.web.CategoryPriceDetailDto
-import com.musinsa.shop.brand.adapter.`in`.web.CategoryPriceSummaryDto
+import com.musinsa.shop.product.adapter.`in`.web.CategoryPriceDetailDto
+import com.musinsa.shop.product.adapter.`in`.web.CategoryPriceSummaryDto
 import com.musinsa.shop.brand.application.port.out.LoadBrandPort
 import com.musinsa.shop.category.application.port.out.LoadCategoryPort
 import com.musinsa.shop.mapping.CategoryProductMappingRepository
@@ -63,7 +63,7 @@ class ProductPersistenceAdapter(
         var totalLowestPrice = 0
 
         for (category in categories) {
-            val lowestPricedProduct = productRepository.findTopByCategoryOrderByPriceAsc(category.id!!).first()
+            val lowestPricedProduct = productRepository.findByCategoryOrderByPriceAsc(category.id!!).first()
             if (lowestPricedProduct != null) {
                 val categoryPriceDetail = CategoryPriceDetailDto(
                     categoryName = category.name,

@@ -1,6 +1,6 @@
 package com.musinsa.shop.product.application
 
-import com.musinsa.shop.brand.adapter.`in`.web.CategoryPriceSummaryDto
+import com.musinsa.shop.product.adapter.`in`.web.CategoryPriceSummaryDto
 import com.musinsa.shop.product.application.port.`in`.ProductUseCase
 import com.musinsa.shop.product.application.port.out.LoadProductPort
 import org.springframework.stereotype.Service

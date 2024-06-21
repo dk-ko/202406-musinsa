@@ -1,4 +1,4 @@
-package com.musinsa.shop.brand.adapter.`in`.web
+package com.musinsa.shop.product.adapter.`in`.web
 
 data class CategoryPriceDetailDto(
     val categoryName: String,

@@ -1,6 +1,5 @@
 package com.musinsa.shop.product.adapter.`in`.web
 
-import com.musinsa.shop.brand.adapter.`in`.web.CategoryPriceSummaryDto
 import com.musinsa.shop.product.application.port.`in`.ProductUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

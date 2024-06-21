@@ -14,5 +14,5 @@ interface ProductRepository: JpaRepository<Product, Long> {
         WHERE cpm.category_id = :category_id
         ORDER BY price ASC
     """, nativeQuery = true)
-    fun findTopByCategoryOrderByPriceAsc(@Param("category_id") categoryId: Long): List<Product>
+    fun findByCategoryOrderByPriceAsc(@Param("category_id") categoryId: Long): List<Product>
 }
