@@ -60,18 +60,18 @@ class CategoryPersistenceAdapter(
     }
 
     override fun getAllRootCategories(): List<Category> {
-        TODO("Not yet implemented")
+        return categoryRepository.findAllRootCategories()
     }
 
     override fun getAllSubCategories(parentId: Long): List<Category> {
-        TODO("Not yet implemented")
+        return categoryRepository.findAllSubCategories(parentId)
     }
 
     override fun getAllSubCategoriesByDepth(parentId: Long, depth: Int): List<Category> {
-        TODO("Not yet implemented")
+        return categoryRepository.findAllSubCategoriesByDepth(parentId, depth)
     }
 
     override fun getAllCategories(): List<Category> {
-        TODO("Not yet implemented")
+        return categoryRepository.findAll()
     }
 }
