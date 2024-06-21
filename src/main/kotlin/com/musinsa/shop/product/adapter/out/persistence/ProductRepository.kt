@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ProductRepository: JpaRepository<Product, Long> {
-    // product 를 category_id 로 조회해서 최저가의 브랜드를 가져옴
     @Query("""
         SELECT p.* FROM product p
         JOIN category_product_mapping cpm ON cpm.product_id = p.product_id
