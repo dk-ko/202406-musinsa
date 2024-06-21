@@ -21,8 +21,8 @@ class Brand(
     val code: String,
 
     @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL])
-    val products: Set<Product> = emptySet(),
+    val products: MutableList<Product> = mutableListOf(),
 
     @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL])
-    val categoryMappings: Set<CategoryBrandMapping> = emptySet()
+    val categoryMappings: MutableList<CategoryBrandMapping> = mutableListOf()
 ): BaseEntity()
