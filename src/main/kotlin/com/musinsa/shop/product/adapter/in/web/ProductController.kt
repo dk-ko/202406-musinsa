@@ -1,19 +1,14 @@
 package com.musinsa.shop.product.adapter.`in`.web
 
-import com.musinsa.shop.product.adapter.out.persistence.ProductPersistenceAdapter
 import com.musinsa.shop.product.application.port.`in`.ProductUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/products")
 class ProductController(
     private val productUseCase: ProductUseCase,
-    private val productPersistenceAdapter: ProductPersistenceAdapter,
 ) {
     @GetMapping("/category-lowest-price")
     fun readLowestPriceBrandByCategory(
@@ -22,12 +17,14 @@ class ProductController(
     }
 
     @GetMapping("/cheapest-brand-category-prices")
-    fun getCheapestBrandAndCategoryPrices(): CheapestPricesDto {
-        return productPersistenceAdapter.getCheapestBrandAndCategoryPrices()
+    fun getCheapestBrandAndCategoryPrices(): ResponseEntity<CheapestPricesDto> {
+        return ResponseEntity(productUseCase.getCheapestBrandAndCategoryPrices(), HttpStatus.OK)
     }
 
-    @GetMapping("/category-min-max-prices/{categoryName}")
-    fun getBrandsWithPriceExtremesByCategory(@PathVariable("categoryName") categoryName: String): MinMaxPriceBrandDto {
-        return productPersistenceAdapter.getBrandsWithPriceExtremesByCategory(categoryName)
+    @PostMapping("/category-min-max-prices")
+    fun getBrandsWithPriceExtremesByCategory(
+        @RequestBody categoryRequest: CategoryRequest
+    ): ResponseEntity<MinMaxPriceBrandDto> {
+        return ResponseEntity(productUseCase.getBrandsWithPriceExtremesByCategory(categoryRequest.name), HttpStatus.OK)
     }
 }
