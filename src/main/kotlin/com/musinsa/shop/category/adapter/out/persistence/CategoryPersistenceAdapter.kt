@@ -35,6 +35,7 @@ class CategoryPersistenceAdapter(
 
         // 부모 카테고리를 경로로 하는 category_path 생성
         val parentPaths = categoryPathRepository.findAll().filter { it.id.childId == parentCategory.id }
+        // TODO filter 대신 쿼리로 변경
         parentPaths.forEach { parentPath ->
             val newPathId = CategoryPathId(parentId = parentPath.id.parentId, childId = savedSubCategory.id!!)
             val newPath = CategoryPath(
