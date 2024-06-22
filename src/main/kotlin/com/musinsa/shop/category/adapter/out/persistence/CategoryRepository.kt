@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 interface CategoryRepository: JpaRepository<Category, Long> {
@@ -40,4 +41,6 @@ interface CategoryRepository: JpaRepository<Category, Long> {
         """, nativeQuery = true
     )
     fun findAllSubCategoriesByDepth(@Param("parentId") parentId: Long, @Param("depth") depth: Int): List<Category>
+
+    fun findByName(name: String): Optional<Category>
 }

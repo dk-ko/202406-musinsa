@@ -75,4 +75,10 @@ class CategoryPersistenceAdapter(
     override fun getAllCategories(): List<Category> {
         return categoryRepository.findAll()
     }
+
+    override fun findByName(name: String): Category {
+        return categoryRepository.findByName(name).orElseThrow{
+            throw NotFoundException("Category with name $name not found")
+        }
+    }
 }

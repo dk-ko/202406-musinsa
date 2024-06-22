@@ -15,4 +15,5 @@ interface LoadCategoryPort {
     fun getAllSubCategoriesByDepth(parentId: Long, depth: Int): List<Category>
     // 전체 카테고리 조회
     fun getAllCategories(): List<Category>
+    fun findByName(name: String): Category
 }

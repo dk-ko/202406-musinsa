@@ -5,6 +5,7 @@ import com.musinsa.shop.product.application.port.`in`.ProductUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,5 +24,10 @@ class ProductController(
     @GetMapping("/cheapest-brand-category-prices")
     fun getCheapestBrandAndCategoryPrices(): CheapestPricesDto {
         return productPersistenceAdapter.getCheapestBrandAndCategoryPrices()
+    }
+
+    @GetMapping("/category-min-max-prices/{categoryName}")
+    fun getBrandsWithPriceExtremesByCategory(@PathVariable("categoryName") categoryName: String): MinMaxPriceBrandDto {
+        return productPersistenceAdapter.getBrandsWithPriceExtremesByCategory(categoryName)
     }
 }

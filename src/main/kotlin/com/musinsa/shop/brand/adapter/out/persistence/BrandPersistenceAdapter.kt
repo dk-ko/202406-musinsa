@@ -31,6 +31,7 @@ class BrandPersistenceAdapter(
         }
     }
 
+    // TODO ID로 조회 또는 INDEX
     override fun getBrandByCode(brandCode: String): Brand {
         return brandRepository.findByCode(brandCode).getOrElse {
             throw NotFoundException("$brandCode not found")
