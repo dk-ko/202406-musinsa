@@ -22,13 +22,8 @@ class BrandPersistenceAdapter(
     }
 
     private fun checkDuplicate(name: String, code: String) {
-        // TODO 쿼리 한번 호출로 변경
-        if (brandRepository.findByName(name).isPresent) {
-            throw DuplicateException("Brand with name $name already exists")
-        }
-
-        if (brandRepository.findByCode(code).isPresent) {
-            throw DuplicateException("Brand with code $code already exists")
+        if (brandRepository.findByNameOrCode(brandName = name, code = code).isPresent) {
+            throw DuplicateException("Resource with name '${name}' and code '${code}' already exists")
         }
     }
 
