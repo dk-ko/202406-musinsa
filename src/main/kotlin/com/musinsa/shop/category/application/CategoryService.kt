@@ -53,4 +53,19 @@ class CategoryService(
 
         return savedSubCategory.toResponse()
     }
+
+    @Transactional(readOnly = true)
+    override fun getAllRootCategories(): List<CategoryResDto> {
+        return loadCategoryPort.getAllRootCategories().map { it.toResponse() }
+    }
+
+    @Transactional(readOnly = true)
+    override fun getAllSubCategories(parentId: Long): List<CategoryResDto> {
+        return loadCategoryPort.getAllSubCategories(parentId).map { it.toResponse() }
+    }
+
+    @Transactional(readOnly = true)
+    override fun getAllSubCategoriesByDepth(parentId: Long, depth: Int): List<CategoryResDto> {
+        return loadCategoryPort.getAllSubCategoriesByDepth(parentId, depth).map { it.toResponse() }
+    }
 }
