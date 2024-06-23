@@ -15,8 +15,8 @@ class BrandService(
         return loadBrandPort.createBrand(name, code).toResponse()
     }
 
-    override fun updateBrand(id: Long, name: String, code: String): BrandResDto {
-        return loadBrandPort.updateBrand(id, name, code).toResponse()
+    override fun updateBrand(id: Long, name: String, code: String): Int {
+        return loadBrandPort.updateBrand(id, name, code)
     }
 
     override fun deleteBrand(id: Long) {

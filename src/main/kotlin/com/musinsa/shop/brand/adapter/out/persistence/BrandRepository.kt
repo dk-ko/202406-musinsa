@@ -20,8 +20,8 @@ interface BrandRepository : JpaRepository<Brand, Long> {
         UPDATE brand b 
         SET b.name = :name,
             b.code = :code
-        WHERE b.id = :id
+        WHERE b.brand_id = :id
     """, nativeQuery = true
     )
-    fun updateNameAndCodeById(@Param("name") name: String, @Param("code") code: String, @Param("id") id: Long, ): Brand
+    fun updateNameAndCodeById(@Param("name") name: String, @Param("code") code: String, @Param("id") id: Long, ): Int
 }
