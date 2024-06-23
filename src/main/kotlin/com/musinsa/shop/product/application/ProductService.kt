@@ -2,6 +2,7 @@ package com.musinsa.shop.product.application
 
 import com.musinsa.shop.brand.application.port.out.LoadBrandPort
 import com.musinsa.shop.category.application.port.out.LoadCategoryPort
+import com.musinsa.shop.exception.NotFoundException
 import com.musinsa.shop.product.adapter.`in`.web.*
 import com.musinsa.shop.product.application.port.`in`.ProductUseCase
 import com.musinsa.shop.product.application.port.out.LoadProductPort
@@ -58,8 +59,10 @@ class ProductService(
             }
         }
 
-        val bestBrand = brandTotalPrices.minByOrNull { it.value }?.key ?: throw IllegalStateException("No products found")
-        val categoriesWithPrices = brandPrices[bestBrand] ?: throw IllegalStateException("No products found for brand")
+        val bestBrand = brandTotalPrices.minByOrNull { it.value }?.key
+            ?: throw NotFoundException("No products found")
+        val categoriesWithPrices = brandPrices[bestBrand]
+            ?: throw NotFoundException("No products found for brand")
 
         return CheapestPricesDto(
             BrandPricingDto(brand = bestBrand, categories = categoriesWithPrices, total = brandTotalPrices[bestBrand]!!)
