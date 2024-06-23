@@ -1,6 +1,6 @@
 package com.musinsa.shop.category.application
 
-import com.musinsa.shop.category.adapter.out.persistence.Category
+import com.musinsa.shop.category.adapter.`in`.web.CategoryResDto
 import com.musinsa.shop.category.application.port.`in`.CategoryUseCase
 import com.musinsa.shop.category.application.port.out.LoadCategoryPort
 import com.musinsa.shop.categorypath.adapter.out.persistence.CategoryPath
@@ -15,7 +15,7 @@ class CategoryService(
     private val loadCategoryPathPort: LoadCategoryPathPort,
 ): CategoryUseCase {
     @Transactional
-    override fun createRootCategory(name: String): Category {
+    override fun createRootCategory(name: String): CategoryResDto {
         val savedCategory = loadCategoryPort.createCategory(name)
 
         val categoryPathId = CategoryPathId(parentId = savedCategory.id!!, childId = savedCategory.id)
@@ -27,11 +27,11 @@ class CategoryService(
         )
         loadCategoryPathPort.createCategoryPath(categoryPath)
 
-        return savedCategory
+        return savedCategory.toResponse()
     }
 
     @Transactional
-    override fun addSubCategory(parentCategoryId: Long, subCategoryName: String): Category {
+    override fun addSubCategory(parentCategoryId: Long, subCategoryName: String): CategoryResDto {
         // 부모 카테고리 조회
         val parentCategory = loadCategoryPort.findCategoryById(parentCategoryId)
 
@@ -51,6 +51,6 @@ class CategoryService(
             loadCategoryPathPort.createCategoryPath(newPath)
         }
 
-        return savedSubCategory
+        return savedSubCategory.toResponse()
     }
 }

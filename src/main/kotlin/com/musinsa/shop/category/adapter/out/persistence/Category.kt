@@ -1,5 +1,6 @@
 package com.musinsa.shop.category.adapter.out.persistence
 
+import com.musinsa.shop.category.adapter.`in`.web.CategoryResDto
 import com.musinsa.shop.common.BaseEntity
 import jakarta.persistence.*
 
@@ -22,5 +23,12 @@ class Category(
 ): BaseEntity() {
     fun addAll(categoryProductMappingList: List<CategoryProductMapping>) {
         productMappings.addAll(categoryProductMappingList)
+    }
+
+    fun toResponse(): CategoryResDto {
+        return CategoryResDto(
+            id = id,
+            name = name,
+        )
     }
 }
