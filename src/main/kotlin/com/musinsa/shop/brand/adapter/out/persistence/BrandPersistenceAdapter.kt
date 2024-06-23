@@ -43,7 +43,7 @@ class BrandPersistenceAdapter(
     override fun updateBrand(id: Long, name: String, code: String): Int {
         checkDuplicate(name, code)
 
-        return brandRepository.updateNameAndCodeById(name, code, id!!)
+        return brandRepository.updateNameAndCodeById(name, code, id)
     }
 
     override fun deleteBrand(id: Long) {
