@@ -69,7 +69,8 @@ class ProductController(
     }
 
     @DeleteMapping("/{id}")
-    fun deleteProduct(@PathVariable("id") id: Long) {
+    fun deleteProduct(@PathVariable("id") id: Long): ResponseEntity<Long> {
         productUseCase.deleteProduct(id)
+        return ResponseEntity(id, HttpStatus.NO_CONTENT)
     }
 }
