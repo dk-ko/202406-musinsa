@@ -1,6 +1,6 @@
-package com.musinsa.shop.category.application.port.out
+package com.musinsa.shop.category.adapter.out.persistence
 
-import com.musinsa.shop.category.adapter.out.persistence.CategoryProductMappingRepository
+import com.musinsa.shop.category.application.port.out.LoadCategoryProductMappingPort
 import org.springframework.stereotype.Component
 
 @Component
