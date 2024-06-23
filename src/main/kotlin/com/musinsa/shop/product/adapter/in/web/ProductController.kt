@@ -27,4 +27,49 @@ class ProductController(
     ): ResponseEntity<MinMaxPriceBrandDto> {
         return ResponseEntity(productUseCase.getBrandsWithPriceExtremesByCategory(categoryRequest.name), HttpStatus.OK)
     }
+
+    @PostMapping
+    fun createProduct(
+        @RequestBody productCreateReqDto: ProductCreateReqDto,
+    ): ResponseEntity<ProductResDto> {
+        return ResponseEntity(
+            productUseCase.createProduct(
+                name = productCreateReqDto.name,
+                price = productCreateReqDto.price,
+                brandCode = productCreateReqDto.brandCode,
+                categoryIds = productCreateReqDto.categoryIds,
+            ), HttpStatus.OK
+        )
+    }
+
+    @PatchMapping
+    fun updateProductInfo(
+        @RequestBody productUpdateReqDto: ProductUpdateReqDto,
+    ): ResponseEntity<Int> {
+        return ResponseEntity(
+            productUseCase.updateProductInfo(
+                id = productUpdateReqDto.id,
+                name = productUpdateReqDto.name,
+                price = productUpdateReqDto.price
+            ), HttpStatus.OK
+        )
+    }
+
+    @PatchMapping("/category")
+    fun updateCategoryOfProduct(
+        @RequestBody categoryOfProductReqDto: CategoryOfProductReqDto,
+    ): ResponseEntity<Int> {
+        return ResponseEntity(
+            productUseCase.updateCategoryOfProduct(
+                id = categoryOfProductReqDto.productId,
+                existingCategoryId = categoryOfProductReqDto.existingCategoryId,
+                categoryIdToUpdate = categoryOfProductReqDto.categoryIdToUpdate,
+            ), HttpStatus.OK
+        )
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteProduct(@PathVariable("id") id: Long) {
+        productUseCase.deleteProduct(id)
+    }
 }

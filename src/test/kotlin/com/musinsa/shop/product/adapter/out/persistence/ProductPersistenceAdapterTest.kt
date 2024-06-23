@@ -51,30 +51,43 @@ class ProductPersistenceAdapterTest: AcceptanceTest() {
         val subCategory = categoryUseCase.addSubCategory(rootCategory.id!!, "반팔티")
         val createBrand = brandPersistenceAdapter.createBrand("ABC", "TEST")
 
-        productPersistenceAdapter.createProduct(
+        val createProduct = productPersistenceAdapter.createProduct(
             name = "Test product",
             price = 10_000,
             brandCode = createBrand.code,
             listOf(rootCategory.id!!, subCategory.id!!)
         )
 
-        val anotherRootCategory = categoryUseCase.createRootCategory("하이")
-        val anotherSubCategory = categoryUseCase.addSubCategory(rootCategory.id!!, "반바지")
-        val anotherCreateBrand = brandPersistenceAdapter.createBrand("DEF", "TEST 2")
-
-        val updateProduct = productPersistenceAdapter.updateProduct(
+        val updateProductResult = productPersistenceAdapter.updateProductInfo(
+            id = createProduct.id!!,
             name = "Test product2",
             price = 10_000,
-            brandCode = anotherCreateBrand.code,
-            listOf(anotherRootCategory.id!!, anotherSubCategory.id!!)
         )
 
-        val root = updateProduct.categoryMappings[0].category.id
-        assertThat(root).isEqualTo(anotherRootCategory.id)
-        val sub = updateProduct.categoryMappings[1].category.id
-        assertThat(sub).isEqualTo(anotherSubCategory.id)
-        assertThat(updateProduct.brand.id).isEqualTo(anotherCreateBrand.id)
-        assertThat(categoryProductMappingRepository.findAllByProductIdIn(listOf(updateProduct.id!!))).isNotEmpty
+        assertThat(updateProductResult).isEqualTo(1)
+    }
+
+    @Test
+    fun `상품 카테고리 수정 테스트`() {
+        val rootCategory = categoryUseCase.createRootCategory("상의")
+        val createBrand = brandPersistenceAdapter.createBrand("ABC", "TEST")
+
+        val createProduct = productPersistenceAdapter.createProduct(
+            name = "Test product",
+            price = 10_000,
+            brandCode = createBrand.code,
+            listOf(rootCategory.id!!)
+        )
+
+        val anotherRootCategory = categoryUseCase.createRootCategory("하의")
+
+        val updateProductResult = productPersistenceAdapter.updateCategoryOfProduct(
+            id = createProduct.id!!,
+            existingCategoryId = rootCategory.id!!,
+            categoryIdToUpdate = anotherRootCategory.id!!,
+        )
+
+        assertThat(updateProductResult).isEqualTo(1)
     }
 
     @Test

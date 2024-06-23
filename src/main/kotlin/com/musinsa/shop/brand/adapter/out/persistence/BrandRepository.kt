@@ -17,9 +17,9 @@ interface BrandRepository : JpaRepository<Brand, Long> {
     @Modifying
     @Query(
         """
-        UPDATE Brand b 
-        SET b.name = :name
-        AND b.code = :code
+        UPDATE brand b 
+        SET b.name = :name,
+            b.code = :code
         WHERE b.id = :id
     """, nativeQuery = true
     )

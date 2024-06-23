@@ -23,6 +23,7 @@ class Brand(
 
     @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL])
     val products: MutableList<Product> = mutableListOf(),
+    // TODO 수정 필요
 
     @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL])
     val categoryMappings: MutableList<CategoryBrandMapping> = mutableListOf()
@@ -31,22 +32,6 @@ class Brand(
         return BrandResDto(
             id = id!!,
             name = name,
-            code = code,
-        )
-    }
-
-    fun updateName(name: String): Brand {
-        return Brand(
-            id = this.id,
-            name = name,
-            code = this.code,
-        )
-    }
-
-    fun updateCode(code: String): Brand {
-        return Brand(
-            id = this.id,
-            name = this.name,
             code = code,
         )
     }

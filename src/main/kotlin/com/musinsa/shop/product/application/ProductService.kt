@@ -88,4 +88,37 @@ class ProductService(
             )
         )
     }
+
+    override fun createProduct(name: String, price: Int, brandCode: String, categoryIds: List<Long>): ProductResDto {
+        return loadProductPort.createProduct(
+            name = name,
+            price = price,
+            brandCode = brandCode,
+            categoryIds = categoryIds,
+        ).toResponse()
+    }
+
+    override fun updateProductInfo(
+        id: Long,
+        name: String,
+        price: Int,
+    ): Int {
+        return loadProductPort.updateProductInfo(
+            id = id,
+            name = name,
+            price = price,
+        )
+    }
+
+    override fun updateCategoryOfProduct(id: Long, existingCategoryId: Long, categoryIdToUpdate: Long): Int {
+        return loadProductPort.updateCategoryOfProduct(
+            id = id,
+            existingCategoryId = existingCategoryId,
+            categoryIdToUpdate = categoryIdToUpdate,
+        )
+    }
+
+    override fun deleteProduct(id: Long) {
+        loadProductPort.deleteProduct(id)
+    }
 }

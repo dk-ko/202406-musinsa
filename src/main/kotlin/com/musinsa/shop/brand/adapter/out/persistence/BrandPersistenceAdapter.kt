@@ -48,11 +48,7 @@ class BrandPersistenceAdapter(
     override fun updateBrand(id: Long, name: String, code: String): Brand {
         checkDuplicate(name, code)
 
-        val brand = this.getBrandById(id)
-        brand.updateName(name)
-        brand.updateCode(code)
-
-        return brandRepository.updateNameAndCodeById(brand.name, brand.code, brand.id!!)
+        return brandRepository.updateNameAndCodeById(name, code, id!!)
     }
 
     override fun deleteBrand(id: Long) {
