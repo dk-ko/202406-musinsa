@@ -1,6 +1,5 @@
-package com.musinsa.shop.mapping
+package com.musinsa.shop.category.adapter.out.persistence
 
-import com.musinsa.shop.category.adapter.out.persistence.Category
 import com.musinsa.shop.common.BaseEntity
 import com.musinsa.shop.product.adapter.out.persistence.Product
 import jakarta.persistence.*

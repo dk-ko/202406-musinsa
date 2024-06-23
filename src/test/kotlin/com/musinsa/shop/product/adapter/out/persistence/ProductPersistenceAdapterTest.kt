@@ -1,9 +1,9 @@
 package com.musinsa.shop.product.adapter.out.persistence
 
 import com.musinsa.shop.brand.adapter.out.persistence.BrandPersistenceAdapter
-import com.musinsa.shop.category.adapter.out.persistence.CategoryPersistenceAdapter
+import com.musinsa.shop.category.application.port.`in`.CategoryUseCase
 import com.musinsa.shop.common.AcceptanceTest
-import com.musinsa.shop.mapping.CategoryProductMappingRepository
+import com.musinsa.shop.category.adapter.out.persistence.CategoryProductMappingRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired
 class ProductPersistenceAdapterTest: AcceptanceTest() {
     @Autowired
     lateinit var productPersistenceAdapter: ProductPersistenceAdapter
-
-    @Autowired
-    lateinit var categoryPersistenceAdapter: CategoryPersistenceAdapter
 
     @Autowired
     lateinit var productRepository: ProductRepository
@@ -24,10 +21,13 @@ class ProductPersistenceAdapterTest: AcceptanceTest() {
     @Autowired
     lateinit var categoryProductMappingRepository: CategoryProductMappingRepository
 
+    @Autowired
+    lateinit var categoryUseCase: CategoryUseCase
+
     @Test
     fun `상품 생성 테스트`() {
-        val rootCategory = categoryPersistenceAdapter.createRootCategory("상의")
-        val subCategory = categoryPersistenceAdapter.addSubCategory(rootCategory.id!!, "반팔티")
+        val rootCategory = categoryUseCase.createRootCategory("상의")
+        val subCategory = categoryUseCase.addSubCategory(rootCategory.id!!, "반팔티")
         val createBrand = brandPersistenceAdapter.createBrand("ABC", "TEST")
 
         val createProduct = productPersistenceAdapter.createProduct(
@@ -47,19 +47,19 @@ class ProductPersistenceAdapterTest: AcceptanceTest() {
 
     @Test
     fun `상품 수정 테스트`() {
-        val rootCategory = categoryPersistenceAdapter.createRootCategory("상의")
-        val subCategory = categoryPersistenceAdapter.addSubCategory(rootCategory.id!!, "반팔티")
+        val rootCategory = categoryUseCase.createRootCategory("상의")
+        val subCategory = categoryUseCase.addSubCategory(rootCategory.id!!, "반팔티")
         val createBrand = brandPersistenceAdapter.createBrand("ABC", "TEST")
 
-        val createProduct = productPersistenceAdapter.createProduct(
+        productPersistenceAdapter.createProduct(
             name = "Test product",
             price = 10_000,
             brandCode = createBrand.code,
             listOf(rootCategory.id!!, subCategory.id!!)
         )
 
-        val anotherRootCategory = categoryPersistenceAdapter.createRootCategory("하이")
-        val anotherSubCategory = categoryPersistenceAdapter.addSubCategory(rootCategory.id!!, "반바지")
+        val anotherRootCategory = categoryUseCase.createRootCategory("하이")
+        val anotherSubCategory = categoryUseCase.addSubCategory(rootCategory.id!!, "반바지")
         val anotherCreateBrand = brandPersistenceAdapter.createBrand("DEF", "TEST 2")
 
         val updateProduct = productPersistenceAdapter.updateProduct(
@@ -79,8 +79,8 @@ class ProductPersistenceAdapterTest: AcceptanceTest() {
 
     @Test
     fun `상품 삭제 테스트`() {
-        val rootCategory = categoryPersistenceAdapter.createRootCategory("상의")
-        val subCategory = categoryPersistenceAdapter.addSubCategory(rootCategory.id!!, "반팔티")
+        val rootCategory = categoryUseCase.createRootCategory("상의")
+        val subCategory = categoryUseCase.addSubCategory(rootCategory.id!!, "반팔티")
         val createBrand = brandPersistenceAdapter.createBrand("ABC", "TEST")
 
         val createProduct = productPersistenceAdapter.createProduct(

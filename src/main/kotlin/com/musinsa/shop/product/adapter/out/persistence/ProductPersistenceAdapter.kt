@@ -2,7 +2,7 @@ package com.musinsa.shop.product.adapter.out.persistence
 
 import com.musinsa.shop.brand.application.port.out.LoadBrandPort
 import com.musinsa.shop.category.application.port.out.LoadCategoryPort
-import com.musinsa.shop.mapping.CategoryProductMappingRepository
+import com.musinsa.shop.category.adapter.out.persistence.CategoryProductMappingRepository
 import com.musinsa.shop.product.application.port.out.LoadProductPort
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional

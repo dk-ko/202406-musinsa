@@ -1,4 +1,4 @@
-package com.musinsa.shop.mapping
+package com.musinsa.shop.category.adapter.out.persistence
 
 import org.springframework.data.jpa.repository.JpaRepository
 

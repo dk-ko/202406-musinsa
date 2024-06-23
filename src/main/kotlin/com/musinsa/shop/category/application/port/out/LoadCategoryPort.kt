@@ -3,8 +3,6 @@ package com.musinsa.shop.category.application.port.out
 import com.musinsa.shop.category.adapter.out.persistence.Category
 
 interface LoadCategoryPort {
-    fun createRootCategory(name: String): Category
-    fun addSubCategory(parentId: Long, subCategoryName: String): Category
     fun findCategoryById(id: Long): Category
     fun findCategoriesByIds(ids: List<Long>): List<Category>
     // 루트카테고리만 전체 조회
@@ -16,4 +14,5 @@ interface LoadCategoryPort {
     // 전체 카테고리 조회
     fun getAllCategories(): List<Category>
     fun findByName(name: String): Category
+    fun createCategory(name: String): Category
 }
