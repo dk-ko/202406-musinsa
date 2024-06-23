@@ -47,7 +47,7 @@ class CategoryController(
         return ResponseEntity(categoryUseCase.getAllSubCategories(parentId), HttpStatus.OK)
     }
 
-    @GetMapping("/sub-depth")
+    @GetMapping("/sub-depth") // TODO depth 삭제
     fun getAllSubCategoriesByDepth(
         @RequestParam parentId: Long,
         @RequestParam depth: Int,

@@ -22,6 +22,7 @@ class BrandPersistenceAdapter(
     }
 
     private fun checkDuplicate(name: String, code: String) {
+        // TODO 쿼리 한번 호출로 변경
         if (brandRepository.findByName(name).isPresent) {
             throw DuplicateException("Brand with name $name already exists")
         }
@@ -38,10 +39,20 @@ class BrandPersistenceAdapter(
         }
     }
 
-    override fun updateBrand(brand: Brand): Brand {
-        checkDuplicate(brand.name, brand.code)
+    override fun getBrandById(id: Long): Brand {
+        return brandRepository.findById(id).getOrElse {
+            throw NotFoundException("$id not found")
+        }
+    }
 
-        return brandRepository.save(brand)
+    override fun updateBrand(id: Long, name: String, code: String): Brand {
+        checkDuplicate(name, code)
+
+        val brand = this.getBrandById(id)
+        brand.updateName(name)
+        brand.updateCode(code)
+
+        return brandRepository.updateNameAndCodeById(brand.name, brand.code, brand.id!!)
     }
 
     override fun deleteBrand(id: Long) {
