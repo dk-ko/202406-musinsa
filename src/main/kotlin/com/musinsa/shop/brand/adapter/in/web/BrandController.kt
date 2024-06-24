@@ -26,11 +26,14 @@ class BrandController(
         )
     }
 
-    @PatchMapping
-    fun updateBrand(@RequestBody brandUpdateReqDto: BrandUpdateDto): ResponseEntity<Int> {
+    @PatchMapping("/{id}")
+    fun updateBrand(
+        @PathVariable id: Long,
+        @RequestBody brandUpdateReqDto: BrandUpdateReqDto
+    ): ResponseEntity<Int> {
         return ResponseEntity(
             brandUseCase.updateBrand(
-                id = brandUpdateReqDto.id,
+                id = id,
                 name = brandUpdateReqDto.name,
                 code = brandUpdateReqDto.code,
             ), HttpStatus.OK
@@ -39,6 +42,7 @@ class BrandController(
 
     @DeleteMapping("/{id}")
     fun deleteBrand(@PathVariable id: Long): ResponseEntity<Long> {
+        // TODO Controller Validation 추가
         brandUseCase.deleteBrand(id)
         return ResponseEntity(id, HttpStatus.NO_CONTENT)
     }

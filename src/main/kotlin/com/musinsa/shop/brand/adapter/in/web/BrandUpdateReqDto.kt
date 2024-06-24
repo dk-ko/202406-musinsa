@@ -2,7 +2,7 @@ package com.musinsa.shop.brand.adapter.`in`.web
 
 import org.jetbrains.annotations.NotNull
 
-data class BrandUpdateDto(
+data class BrandUpdateReqDto(
     @NotNull
     val id: Long,
     @NotNull
