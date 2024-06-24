@@ -28,7 +28,7 @@ class BrandControllerTest {
     private lateinit var mapper: ObjectMapper
 
     @Test
-    fun createBrand() {
+    fun createBrandTest() {
         val name = "name"
         val code = "code"
         val brandCreateReqDto = BrandCreateReqDto(name, code)
@@ -36,12 +36,7 @@ class BrandControllerTest {
 
         given(brandUseCase.createBrand(name, code)).willReturn(brandResDto)
 
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/brands")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(brandCreateReqDto))
-        )
+        createBrand(brandCreateReqDto)
             .andExpect(MockMvcResultMatchers.status().isCreated)
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
 
@@ -51,7 +46,7 @@ class BrandControllerTest {
     }
 
     @Test
-    fun updateBrand() {
+    fun updateBrandTest() {
         // create
         val name = "name"
         val code = "code"
@@ -60,12 +55,7 @@ class BrandControllerTest {
         given(brandUseCase.createBrand(name, code)).willReturn(brandResDto)
 
         val brandCreateReqDto = BrandCreateReqDto(name, code)
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/brands")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(brandCreateReqDto))
-        )
+        createBrand(brandCreateReqDto)
 
         // update
         val updateValue = "update"
@@ -83,7 +73,7 @@ class BrandControllerTest {
     }
 
     @Test
-    fun deleteBrand() {
+    fun deleteBrandTest() {
         // create
         val name = "name"
         val code = "code"
@@ -92,12 +82,7 @@ class BrandControllerTest {
         given(brandUseCase.createBrand(name, code)).willReturn(brandResDto)
 
         val brandCreateReqDto = BrandCreateReqDto(name, code)
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/brands")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(brandCreateReqDto))
-        )
+        createBrand(brandCreateReqDto)
 
         // delete
         mockMvc.perform(
@@ -106,4 +91,12 @@ class BrandControllerTest {
         )
             .andExpect(MockMvcResultMatchers.status().isNoContent)
     }
+
+    private fun createBrand(brandCreateReqDto: BrandCreateReqDto) =
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/brands")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(brandCreateReqDto))
+        )
 }
