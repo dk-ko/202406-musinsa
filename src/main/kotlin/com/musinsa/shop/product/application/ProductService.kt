@@ -81,11 +81,11 @@ class ProductService(
 
         return MinMaxPriceBrandDto(
             category = name,
-            MinPriceBrandDto(
+            PriceBrandDto(
                 lowestPriceBrand.name,
                 lowestPriceProduct.price,
             ),
-            MaxPriceBrandDto(
+            PriceBrandDto(
                 highestPriceBrand.name,
                 highestPriceProduct.price,
             )

@@ -2,16 +2,11 @@ package com.musinsa.shop.product.adapter.`in`.web
 
 data class MinMaxPriceBrandDto(
     val category: String,
-    val minPrice: MinPriceBrandDto,
-    val maxPrice: MaxPriceBrandDto,
+    val minPrice: PriceBrandDto,
+    val maxPrice: PriceBrandDto,
 )
 
-data class MinPriceBrandDto(
-    val brand: String,
-    val price: Int,
-)
-
-data class MaxPriceBrandDto(
+data class PriceBrandDto(
     val brand: String,
     val price: Int,
 )
