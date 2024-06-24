@@ -15,16 +15,7 @@ class Category(
     @Column(name = "name", nullable = false, unique = true)
     val name: String,
 
-    @OneToMany(mappedBy = "category")
-    val productMappings: MutableList<CategoryProductMapping> = mutableListOf(),
-
-    @OneToMany(mappedBy = "category")
-    val brandMappings: MutableList<CategoryBrandMapping> = mutableListOf()
 ): BaseEntity() {
-    fun addAll(categoryProductMappingList: List<CategoryProductMapping>) {
-        productMappings.addAll(categoryProductMappingList)
-    }
-
     fun toResponse(): CategoryResDto {
         return CategoryResDto(
             id = id,

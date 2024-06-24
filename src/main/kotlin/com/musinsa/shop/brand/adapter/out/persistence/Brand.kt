@@ -21,12 +21,6 @@ class Brand(
     @Column(name = "code", nullable = false, unique = true)
     val code: String,
 
-    @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL])
-    val products: MutableList<Product> = mutableListOf(),
-    // TODO 수정 필요
-
-    @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL])
-    val categoryMappings: MutableList<CategoryBrandMapping> = mutableListOf()
 ): BaseEntity() {
     fun toResponse(): BrandResDto {
         return BrandResDto(

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 class CategoryProductMappingPersistenceAdapter(
     private val categoryProductMappingRepository: CategoryProductMappingRepository,
-): LoadCategoryProductMappingPort {
+) : LoadCategoryProductMappingPort {
     override fun updateCategoryProductMapping(
         existingCategoryId: Long,
         productId: Long,
@@ -17,5 +17,9 @@ class CategoryProductMappingPersistenceAdapter(
             productId = productId,
             categoryIdToUpdate = categoryIdToUpdate
         )
+    }
+
+    override fun createCategoryProductMapping(categoryProductMapping: CategoryProductMapping): CategoryProductMapping {
+        return categoryProductMappingRepository.save(categoryProductMapping)
     }
 }

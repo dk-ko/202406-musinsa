@@ -26,27 +26,9 @@ class Product(
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", nullable = false)
-    val brand: Brand,
+    val brand: Brand
 
-    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL])
-    val categoryMappings: MutableList<CategoryProductMapping> = mutableListOf()
 ): BaseEntity() {
-    fun addAllCategory(categories: List<Category>) {
-        val categoryProductMappingList = categories.map { category ->
-            CategoryProductMapping(
-                id = null,
-                category = category,
-                product = this,
-            )
-        }
-
-        categories.forEach { category ->
-            category.addAll(categoryProductMappingList)
-        }
-
-        categoryMappings.addAll(categoryProductMappingList)
-    }
-
     fun toResponse(): ProductResDto {
         return ProductResDto(
             id = this.id!!,

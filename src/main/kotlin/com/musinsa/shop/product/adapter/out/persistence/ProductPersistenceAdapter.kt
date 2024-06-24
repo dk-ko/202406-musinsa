@@ -1,6 +1,7 @@
 package com.musinsa.shop.product.adapter.out.persistence
 
 import com.musinsa.shop.brand.application.port.out.LoadBrandPort
+import com.musinsa.shop.category.adapter.out.persistence.CategoryProductMapping
 import com.musinsa.shop.category.adapter.out.persistence.CategoryProductMappingRepository
 import com.musinsa.shop.category.application.port.out.LoadCategoryPort
 import com.musinsa.shop.category.application.port.out.LoadCategoryProductMappingPort
@@ -36,7 +37,17 @@ class ProductPersistenceAdapter(
             )
         )
 
-        savedProduct.addAllCategory(findCategories)
+        val categoryProductMappingList = findCategories.map { category ->
+            CategoryProductMapping(
+                id = null,
+                category = category,
+                product = savedProduct,
+            )
+        }
+
+        categoryProductMappingList.forEach {
+            loadCategoryProductMappingPort.createCategoryProductMapping(it)
+        }
 
         return savedProduct
     }
@@ -66,8 +77,8 @@ class ProductPersistenceAdapter(
 
     @Transactional
     override fun deleteProduct(id: Long) {
-        productRepository.deleteById(id)
         categoryProductMappingRepository.deleteAllByProductId(id)
+        productRepository.deleteById(id)
     }
 
     @Transactional(readOnly = true)

@@ -37,10 +37,10 @@ class ProductPersistenceAdapterTest: AcceptanceTest() {
             listOf(rootCategory.id!!, subCategory.id!!)
         )
 
-        val root = createProduct.categoryMappings[0].category.id
-        assertThat(root).isEqualTo(rootCategory.id)
-        val sub = createProduct.categoryMappings[1].category.id
-        assertThat(sub).isEqualTo(subCategory.id)
+        val categoryProductMappings = categoryProductMappingRepository.findAllByProductIdIn(listOf(createProduct.id!!))
+        assertThat(categoryProductMappings[0].category.id).isEqualTo(rootCategory.id)
+        assertThat(categoryProductMappings[1].category.id).isEqualTo(subCategory.id)
+
         assertThat(createProduct.brand.id).isEqualTo(createBrand.id)
         assertThat(categoryProductMappingRepository.findAllByProductIdIn(listOf(createProduct.id!!))).isNotEmpty
     }
