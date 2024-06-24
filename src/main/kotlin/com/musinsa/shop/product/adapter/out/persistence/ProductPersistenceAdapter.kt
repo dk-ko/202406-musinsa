@@ -45,16 +45,16 @@ class ProductPersistenceAdapter(
             )
         }
 
-        categoryProductMappingList.forEach {
-            loadCategoryProductMappingPort.createCategoryProductMapping(it)
-        }
+        loadCategoryProductMappingPort.createBulkCategoryProductMapping(
+            categoryProductMappingList.map { it }.toList()
+        )
 
         return savedProduct
     }
 
     @Transactional
     override fun updateProductInfo(id: Long, name: String, price: Int): Int {
-        this.findById(id)
+        checkIfExistsById(id)
 
         return productRepository.updateProductInfo(
             id = id,
@@ -65,8 +65,8 @@ class ProductPersistenceAdapter(
 
     @Transactional
     override fun updateCategoryOfProduct(id: Long, existingCategoryId: Long, categoryIdToUpdate: Long): Int {
-        loadCategoryPort.findCategoryById(existingCategoryId)
-        loadCategoryPort.findCategoryById(categoryIdToUpdate)
+        checkIfExistsByCategoryId(existingCategoryId)
+        checkIfExistsByCategoryId(categoryIdToUpdate)
 
         return loadCategoryProductMappingPort.updateCategoryProductMapping(
             productId = id,
@@ -89,6 +89,14 @@ class ProductPersistenceAdapter(
     @Transactional(readOnly = true)
     override fun findByCategoryOrderByPriceAscLimit(categoryId: Long): Product {
         return productRepository.findByCategoryOrderByPriceAscLimit(categoryId)
+    }
+
+    private fun checkIfExistsByCategoryId(categoryId: Long) {
+        loadCategoryPort.findCategoryById(categoryId)
+    }
+
+    private fun checkIfExistsById(id: Long) {
+        this.findById(id)
     }
 
     private fun findById(id: Long): Product {

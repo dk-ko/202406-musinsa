@@ -22,4 +22,8 @@ class CategoryProductMappingPersistenceAdapter(
     override fun createCategoryProductMapping(categoryProductMapping: CategoryProductMapping): CategoryProductMapping {
         return categoryProductMappingRepository.save(categoryProductMapping)
     }
+
+    override fun createBulkCategoryProductMapping(categoryProductMappings: List<CategoryProductMapping>): List<CategoryProductMapping> {
+        return categoryProductMappingRepository.saveAll(categoryProductMappings)
+    }
 }
