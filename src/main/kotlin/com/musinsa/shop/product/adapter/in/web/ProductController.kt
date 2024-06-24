@@ -38,17 +38,18 @@ class ProductController(
                 price = productCreateReqDto.price,
                 brandCode = productCreateReqDto.brandCode,
                 categoryIds = productCreateReqDto.categoryIds,
-            ), HttpStatus.OK
+            ), HttpStatus.CREATED
         )
     }
 
     @PatchMapping
     fun updateProductInfo(
+        @RequestParam("productId") productId: Long,
         @RequestBody productUpdateReqDto: ProductUpdateReqDto,
     ): ResponseEntity<Int> {
         return ResponseEntity(
             productUseCase.updateProductInfo(
-                id = productUpdateReqDto.id,
+                id = productId,
                 name = productUpdateReqDto.name,
                 price = productUpdateReqDto.price
             ), HttpStatus.OK
@@ -57,6 +58,7 @@ class ProductController(
 
     @PatchMapping("/category")
     fun updateCategoryOfProduct(
+        @RequestParam("productId") productId: Long,
         @RequestBody categoryOfProductReqDto: CategoryOfProductReqDto,
     ): ResponseEntity<Int> {
         return ResponseEntity(
@@ -68,8 +70,8 @@ class ProductController(
         )
     }
 
-    @DeleteMapping("/{id}")
-    fun deleteProduct(@PathVariable("id") id: Long): ResponseEntity<Long> {
+    @DeleteMapping
+    fun deleteProduct(@RequestParam("productId") id: Long): ResponseEntity<Long> {
         productUseCase.deleteProduct(id)
         return ResponseEntity(id, HttpStatus.NO_CONTENT)
     }
