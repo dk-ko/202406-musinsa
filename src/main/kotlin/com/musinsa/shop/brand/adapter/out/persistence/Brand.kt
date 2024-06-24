@@ -2,13 +2,14 @@ package com.musinsa.shop.brand.adapter.out.persistence
 
 import com.musinsa.shop.brand.adapter.`in`.web.BrandResDto
 import com.musinsa.shop.common.BaseEntity
-import com.musinsa.shop.category.adapter.out.persistence.CategoryBrandMapping
-import com.musinsa.shop.product.adapter.out.persistence.Product
 import jakarta.persistence.*
 
 
 @Entity
-@Table(name = "brand")
+@Table(
+    name = "brand",
+    indexes = [Index(name = "idx_brand_code", columnList = "code")]
+)
 class Brand(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

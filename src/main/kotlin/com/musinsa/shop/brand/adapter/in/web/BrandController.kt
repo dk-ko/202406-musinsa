@@ -42,7 +42,6 @@ class BrandController(
 
     @DeleteMapping("/{id}")
     fun deleteBrand(@PathVariable id: Long): ResponseEntity<Long> {
-        // TODO Controller Validation 추가
         brandUseCase.deleteBrand(id)
         return ResponseEntity(id, HttpStatus.NO_CONTENT)
     }
