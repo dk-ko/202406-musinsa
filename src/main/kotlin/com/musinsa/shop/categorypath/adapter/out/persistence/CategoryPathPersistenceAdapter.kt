@@ -12,7 +12,6 @@ class CategoryPathPersistenceAdapter(
     }
 
     override fun getParentCategoryPaths(parentCategory: Category): List<CategoryPath> {
-        return categoryPathRepository.findAll().filter { it.id.childId == parentCategory.id }
-        // TODO filter 대신 쿼리로 변경
+        return categoryPathRepository.findAllByParentCategoryPaths(parentCategoryId = parentCategory.id!!)
     }
 }
