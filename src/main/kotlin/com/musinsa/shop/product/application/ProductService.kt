@@ -14,7 +14,7 @@ class ProductService(
     private val loadProductPort: LoadProductPort,
     private val loadCategoryPort: LoadCategoryPort,
     private val loadBrandPort: LoadBrandPort,
-): ProductUseCase {
+) : ProductUseCase {
     @Transactional
     override fun getLowestPricedBrandByCategory(): CategoryPriceSummaryDto {
         val categories = loadCategoryPort.getAllCategories()
@@ -24,16 +24,14 @@ class ProductService(
 
         for (category in categories) {
             val lowestPricedProduct = loadProductPort.findByCategoryOrderByPriceAsc(category.id!!).first()
-            if (lowestPricedProduct != null) {
-                val categoryPriceDetail = CategoryPriceDetailDto(
-                    categoryName = category.name,
-                    brandName = lowestPricedProduct.brand.name,
-                    lowestPrice = lowestPricedProduct.price
-                )
-                categoryPriceDetails.add(categoryPriceDetail)
-                totalLowestPrice += lowestPricedProduct.price
-                // TODO 캐싱 등 성능 개선 포인트 고민
-            }
+            val categoryPriceDetail = CategoryPriceDetailDto(
+                categoryName = category.name,
+                brandName = lowestPricedProduct.brand.name,
+                lowestPrice = lowestPricedProduct.price
+            )
+            categoryPriceDetails.add(categoryPriceDetail)
+            totalLowestPrice += lowestPricedProduct.price
+            // TODO 캐싱 등 성능 개선 포인트 고민
         }
 
         return CategoryPriceSummaryDto(
