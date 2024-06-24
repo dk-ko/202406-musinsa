@@ -23,7 +23,7 @@ class ProductService(
         var totalLowestPrice = 0
 
         for (category in categories) {
-            val lowestPricedProduct = loadProductPort.findByCategoryOrderByPriceAsc(category.id!!).first()
+            val lowestPricedProduct = loadProductPort.findByCategoryOrderByPriceAscLimit(category.id!!)
             val categoryPriceDetail = CategoryPriceDetailDto(
                 categoryName = category.name,
                 brandName = lowestPricedProduct.brand.name,
@@ -31,7 +31,6 @@ class ProductService(
             )
             categoryPriceDetails.add(categoryPriceDetail)
             totalLowestPrice += lowestPricedProduct.price
-            // TODO 캐싱 등 성능 개선 포인트 고민
         }
 
         return CategoryPriceSummaryDto(

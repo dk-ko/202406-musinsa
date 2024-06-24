@@ -8,4 +8,5 @@ interface LoadProductPort {
     fun updateCategoryOfProduct(id: Long, existingCategoryId: Long, categoryIdToUpdate: Long): Int
     fun deleteProduct(id: Long)
     fun findByCategoryOrderByPriceAsc(categoryId: Long): List<Product>
+    fun findByCategoryOrderByPriceAscLimit(categoryId: Long): Product
 }

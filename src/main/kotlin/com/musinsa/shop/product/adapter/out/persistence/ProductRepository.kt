@@ -17,6 +17,15 @@ interface ProductRepository: JpaRepository<Product, Long> {
     """, nativeQuery = true)
     fun findByCategoryOrderByPriceAsc(@Param("category_id") categoryId: Long): List<Product>
 
+    @Query("""
+        SELECT p.* FROM product p
+        JOIN category_product_mapping cpm ON cpm.product_id = p.product_id
+        WHERE cpm.category_id = :category_id
+        ORDER BY price ASC
+        LIMIT 1
+    """, nativeQuery = true)
+    fun findByCategoryOrderByPriceAscLimit(@Param("category_id") categoryId: Long): Product
+
     @Transactional
     @Modifying
     @Query("""

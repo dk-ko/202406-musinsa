@@ -86,6 +86,11 @@ class ProductPersistenceAdapter(
         return productRepository.findByCategoryOrderByPriceAsc(categoryId)
     }
 
+    @Transactional(readOnly = true)
+    override fun findByCategoryOrderByPriceAscLimit(categoryId: Long): Product {
+        return productRepository.findByCategoryOrderByPriceAscLimit(categoryId)
+    }
+
     private fun findById(id: Long): Product {
         return productRepository.findById(id).orElseThrow {
             throw NotFoundException("$id not found")
